@@ -3,7 +3,7 @@
 * after all the DOM elements are rendered and ready to take action
 */
 
-function Threesixty () {
+function Threesixty (config) {
   this.ready = false;
   // Tells the app if the user is dragging the pointer
   this.dragging = false;
@@ -21,12 +21,15 @@ function Threesixty () {
   // A setInterval instance used to call the rendering function
   this.ticker = 0;
   // Sets the speed of the image sliding animation
-  this.speedMultiplier = 10;
+  this.speedMultiplier = config.speedMultiplier;
   // CanvasLoader instance variable
   this.spinner = null;
 
+  this.imageDir = config.imageDir;
+  this.imagePrefix = config.imagePrefix;
+  this.imageType = config.imageType;
   // Stores the total amount of images we have in the sequence
-  this.totalFrames = 180;
+  this.totalFrames = config.totalFrames;
   // The current frame value of the image slider animation
   this.currentFrame = 0;
   // Stores all the loaded image objects
@@ -160,7 +163,7 @@ Threesixty.prototype = {
     // Creates a new <li>
     var li = document.createElement("li");
     // Generates the image file name using the incremented "loadedImages" variable
-    var imageName = "img/threesixty_" + (this.loadedImages + 1) + ".jpg";
+    var imageName = this.imageDir + "/" + this.imagePrefix + (this.loadedImages + 1) + "." + this.imageType;
     /*
       Creates a new <img> and sets its src attribute to point to the file name we generated.
       It also hides the image by applying the "previous-image" CSS class to it.
