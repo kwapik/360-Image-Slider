@@ -1,3 +1,7 @@
+ol, ul {
+	list-style: none;
+}
+
 /*
 	Sets the style of the image slider wrapper <div> to be centered horizontally and vertically.
 	It also sets its default dimensions and the overflowing hidden (to fix the IE image positioning bug).

@@ -51,9 +51,9 @@ function Threesixty (config) {
 Threesixty.prototype = {
   activate: function() {
     // Caching DOM element references
-    $document = $(document);
-    $container = $('#threesixty');
-    $images = $('#threesixty_images');
+    this.document = $(document);
+    this.container = $('#threesixty');
+    this.images = $('#threesixty_images');
     /*
       We launch the application by...
       Adding the preloader, and...
@@ -66,7 +66,7 @@ Threesixty.prototype = {
     /**
     * Adds the jQuery "mousedown" event to the image slider wrapper.
     */
-    $container.on("mousedown", function (event) {
+    this.container.on("mousedown", function (event) {
       thiz.quitDemoMode();
 
       // Prevents the original event handler behaciour
@@ -81,7 +81,7 @@ Threesixty.prototype = {
     * Adds the jQuery "mouseup" event to the document. We use the document because we want to let the user to be able to drag
     * the mouse outside the image slider as well, providing a much bigger "playground".
     */
-    $document.on("mouseup", function (event){
+    this.document.on("mouseup", function (event){
       // Prevents the original event handler behaciour
       event.preventDefault();
       // Tells the pointer tracking function that the user finished dragging the pointer and it doesn't need to track the pointer changes anymore
@@ -92,7 +92,7 @@ Threesixty.prototype = {
     * Adds the jQuery "mousemove" event handler to the document. By using the document again we give the user a better user experience
     * by providing more playing area for the mouse interaction.
     */
-    $document.on("mousemove", function (event){
+    this.document.on("mousemove", function (event){
       if(thiz.demoMode) {
         return;
       }
@@ -106,7 +106,7 @@ Threesixty.prototype = {
     /**
     *
     */
-    $container.on("touchstart", function (event) {
+    this.container.on("touchstart", function (event) {
       thiz.quitDemoMode();
 
       // Prevents the original event handler behaciour
@@ -120,7 +120,7 @@ Threesixty.prototype = {
     /**
     *
     */
-    $container.on("touchmove", function (event) {
+    this.container.on("touchmove", function (event) {
       // Prevents the original event handler behaciour
       event.preventDefault();
       // Starts tracking the pointer X position changes
@@ -130,7 +130,7 @@ Threesixty.prototype = {
     /**
     *
     */
-    $container.on("touchend", function (event) {
+    this.container.on("touchend", function (event) {
       // Prevents the original event handler behaciour
       event.preventDefault();
       // Tells the pointer tracking function that the user finished dragging the pointer and it doesn't need to track the pointer changes anymore
@@ -173,7 +173,7 @@ Threesixty.prototype = {
     // We add the newly added image object (returned by jQuery) to the "frames" array.
     this.frames.push(image);
     // We add the <li> to the <ol>
-    $images.append(li);
+    this.images.append(li);
     /*
       Adds the "load" event handler to the new image.
       When the event triggers it calls the "imageLoaded" function.
@@ -222,7 +222,7 @@ Threesixty.prototype = {
   */
   showThreesixty: function() {
     // Fades in the image slider by using the jQuery "fadeIn" method
-    $images.fadeIn("slow");
+    this.images.fadeIn("slow");
     // Sets the "ready" variable to true, so the app now reacts to user interaction
     this.ready = true;
     // Sets the endFrame to an initial value...
@@ -347,7 +347,7 @@ Threesixty.prototype = {
         // Calculates the distance between the pointer starting and ending position during the last tracking time period
         this.pointerDistance = this.pointerEndPosX - this.pointerStartPosX;
         // Calculates the endFrame using the distance between the pointer X starting and ending positions and the "speedMultiplier" values
-        this.endFrame = this.currentFrame + Math.ceil((this.totalFrames - 1) * this.speedMultiplier * (this.pointerDistance / $container.width()));
+        this.endFrame = this.currentFrame + Math.ceil((this.totalFrames - 1) * this.speedMultiplier * (this.pointerDistance / this.container.width()));
         // Updates the image slider frame animation
         this.refresh();
         // restarts counting the pointer tracking period
